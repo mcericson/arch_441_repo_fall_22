@@ -1,4 +1,4 @@
-#Rhino Python Basics
+# Rhino Python Basics
 
 This is a quick start to programming with python inside Rhino. The links below offer more resources:
 
