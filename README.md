@@ -6,16 +6,17 @@ This is a quick start to programming with python inside Rhino. The links below o
 
 - **Python Programming:** https://woodbury.on.worldcat.org/oclc/44958765
 - **Essential Mathematics:** https://developer.rhino3d.com/guides/general/
-essential-mathematics/.
+essential-mathematics/
+
 
 - **Rhino.Python Guides:** https://developer.
-rhino3d.com/guides/rhinopython/.
+rhino3d.com/guides/rhinopython/
 
 - **RhinoPython Primer:** https://
-s3.amazonaws.com/mcneel/misc/docs/en/RhinoPythonPrimerRev3.pdf.
+s3.amazonaws.com/mcneel/misc/docs/en/RhinoPythonPrimerRev3.pdf
 
 - **Google Style Guide:** https://
-s3.amazonaws.com/mcneel/misc/docs/en/RhinoPythonPrimerRev3.pdf.
+s3.amazonaws.com/mcneel/misc/docs/en/RhinoPythonPrimerRev3.pdf
 
 
 ## Starting a file in RhinoPython
