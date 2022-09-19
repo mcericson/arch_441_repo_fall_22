@@ -47,7 +47,7 @@ import rhinoscriptsyntax as rs
 #A program the creates a circle of radius 20 at 0,0,0.
 rs.AddCircle((0,0,0), 20)
 ```
-The text that appears after the "#" is a comment. These are notes for the programmer that will be ignored by the computer. Please use these as much as possible to clarify the intent of your code.  We have now mad a very simple program. We can move on to doing something the computer is very good at: repetition.
+The text that appears after the "#" is a comment. These are notes for the programmer that will be ignored by the computer. Please use these as much as possible to clarify the intent of your code.  We have now made a very simple program. We can move on to doing something the computer is very good at: repetition.
 
 ## Loops
 
