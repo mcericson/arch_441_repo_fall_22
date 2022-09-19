@@ -5,18 +5,13 @@ This is a quick start to programming with python inside Rhino. The links below o
 ##Class Links:
 
 - **Python Programming:** https://woodbury.on.worldcat.org/oclc/44958765
-- **Essential Mathematics:** https://developer.rhino3d.com/guides/general/
-essential-mathematics/
+- **Essential Mathematics:** https://developer.rhino3d.com/guides/general/essential-mathematics/
 
+- **Rhino.Python Guides:** https://developer.rhino3d.com/guides/rhinopython/
 
-- **Rhino.Python Guides:** https://developer.
-rhino3d.com/guides/rhinopython/
+- **RhinoPython Primer:** https://developer.rhino3d.com/guides/rhinopython/primer-101/
 
-- **RhinoPython Primer:** https://
-s3.amazonaws.com/mcneel/misc/docs/en/RhinoPythonPrimerRev3.pdf
-
-- **Google Style Guide:** https://
-s3.amazonaws.com/mcneel/misc/docs/en/RhinoPythonPrimerRev3.pdf
+- **Google Style Guide:** https://google.github.io/styleguide/pyguide
 
 
 ## Starting a file in RhinoPython
@@ -162,6 +157,62 @@ A three dimensional grid should appear with 1000 points. Each nested loop has ex
 - Two dimensional loop of length 10 = 100 points
 - Three dimensional loop of length 10 = 1000 points
 
+## Lists
+
+The program that we wrote creates a cubic grid of points. However, if we remove the AddPoint() function and replace it with a print function, we will see that a problem emerges.
+
+```python 
+for i in range(0, 10, 1):
+    x = i
+    for j in range(0, 10, 1):
+        y = j
+        for p in range(0, 10, 1):
+            z = p
+            print(x, y,z)
+            
+```
+
+```terminal
+(0, 0, 0)
+(0, 0, 1)
+(0, 0, 2)
+(0, 0, 3)
+(0, 0, 4)
+```
+The program creates a new point each time it runs, but the points are not in common container and therefore we are unable to do anything with them. In order to collect them we need make a list.  A list is a collection of information. To begin we will create an empty list outside of loop:
+
+```python
+point_list = []
+```
+
+This creates a container that we can put the points in as they are created. If we want to add an element to the list we use the list.append() function.
+
+```python
+point_list.append()
+```
+
+Now if we place this into our program:
+```python 
+#create an empty list outside of the loop
+point_list = []
+for i in range(0, 10, 1):
+    x = i
+    for j in range(0, 10, 1):
+        y = j
+        for p in range(0, 10, 1):
+            z = p
+            #assign x, y, and z to a variable
+            point = (x, y, z)
+            #append point to point_list
+            point_list.append(point)
+#exit the loop and print the list
+
+print point_list
+```
+```
+[(0, 0, 0), (0, 0, 1), (0, 0, 2), (0, 0, 3), (0, 0, 4),...]
+```
+The points have been added to a list and now can be used accessed and used to do other things.
 ## Definitions
 
 In python we can create our own functions called definitions. A definition is a set of operations that have been encapsulated in a single call:
@@ -172,18 +223,80 @@ def function_name(variable):
     return something
 ```
 
-The above function is named "function_name" and given space to accept one variable.  The variable is then passed onto the function "do_something" and the information it creates is assigned to the variable "something".  Lastly, the variabel "something" is returned by the funciton so it can be used outside. This is how the function is created.  To call the function in a program one only needs to writ:
+The above function is named "function_name" and given space to accept one variable.  The variable is then passed onto the function "do_something" and the information it creates is assigned to the variable "something".  Lastly, the variable "something" is returned by the funciton so it can be used outside. This is how the function is created.  To call the function in a program one only needs to write:
 
 ```python
 fucntion_name(variable)
 ```
-This simplifies the appearance of the code and allows the program to be edited later and updated. For example, if we decided to loop through the do_something function instead:
+This simplifies the appearance of the code and allows the program to be edited later and updated. For example, if we decided to loop through the do_something() function instead:
 ```python
 def function_name(variable):
     for i in range(0, 10, 1):
         something = do_something(variable)
     return something
 ```
-Once we edit the definition, everytime we call this function in the program it will reflect this new change. 
+Once we edit the definition, everytime we call this function in the program it will reflect this new change.
 
-    
+## First Definition
+
+For our first definition we will begin by taking the work that we did with grids and loops and encapsulating in a definition entitled cubic_grid(). When starting to write a definition it useful to think of what we will put in and what we would like to get out.  We will start by examining the loop we wrote earlier:
+```python 
+for i in range(0, 10, 1):
+    x = i
+    for j in range(0, 10, 1):
+        y = j
+        for p in range(0, 10, 1):
+            z = p
+            point = (x, y, z)
+```
+The loops need a start, stop, and step.  We could make variables for each of these, but simplify we will focus only the stop and the step.  The stop specifies the total number of points to be created. If we have three nested loops for x, y and z coordinates a loop with a stop of 10 will produce 10 x 10 x 10 points.  So that we can control x, y and z values we can write input variables as x_number, y_number, and z_number:
+```python 
+def cubic_grid(x_number, y_number, z_number):
+```
+Next we can use the step variable to set the cell size of each unit in the cubic grid.  
+
+```python
+def cubic_grid(x_number, y_number, z_number, cell_cize):
+```
+Next we can specify, what we would like get from the definition. In this case we want a list of points. 
+
+```python
+def cubic_grid(x_number, y_number, z_number, cell_cize):
+    return point_list
+```
+This function will not doing anything, but we now have a sense of what we want it to do. We can now add our nested loops to the function replacing 10 with x_number, y_number and z_number in each loop.  We will also need to replace 1, the step, with cell_size. We will also need to be sure that the code inside the definition begins one indent from the "def". 
+
+```python 
+def cubic_grid(x_number, y_number, z_number, cell_cize):
+    for i in range(0, x_number, cell_size):
+        x = i
+        for j in range(0, y_number, cell_size):
+            y = j
+            for p in range(0, z_number, cell_size):
+                z = p
+                point = (x,y,z)
+    return point_list
+
+```
+We now need to create and empty "point_list" and append each point to it:
+```python 
+
+def cubic_grid(x_number, y_number, z_number, cell_cize):
+    #create and empty list
+    point_list = []
+    #create a three-deep nested loop to create cubic grid.
+    for i in range(0, x_number, cell_size):
+        x = i
+        for j in range(0, y_number, cell_size):
+            y = j
+            for p in range(0, z_number, cell_size):
+                z = p
+                point = (x, y, z)
+                #append the point to the list
+                point_list.append(point)
+                #draw the point to the Rhino window.
+                rs.AddPoint(point)
+    #return the list of points.
+    return point_list
+
+```
