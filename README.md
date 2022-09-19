@@ -321,7 +321,7 @@ D
 E
 F
 ```
-This operation seems fairly useless, however if we can imagine a very large list and more complex operations it begins to be much more valuab. Consider our cubic_grid() definition.  It returns a list of points.  What if we want to add a sphere to each of the points in the cubic_grid() definition. 
+This operation seems fairly useless, however if we can imagine a very large list and more complex operations it begins to be much more valuable. Consider our cubic_grid() definition.  It returns a list of points.  What if we want to add a sphere to each of the points in the cubic_grid() definition. 
 
 ```python
 point_list = cubic_grid(5, 5, 5, 1):
