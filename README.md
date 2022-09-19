@@ -49,7 +49,7 @@ rs.AddCircle((0,0,0), 20)
 ```
 The text that appears after the "#" is a comment. These are notes for the programmer that will be ignored by the computer. Please use these as much as possible to clarify the intent of your code.  We have now mad a very simple program. We can move on to doing something the computer is very good at: repetition.
 
-##Loops
+## Loops
 
 A loop is a fundamental part of writing programs.  It instructs the computer to complete a series of operations a specified number of times or untila condition is reached. To begin we will start with a "for loop". This kind of loop iterates over a specified quantity.  
 
@@ -300,3 +300,34 @@ def cubic_grid(x_number, y_number, z_number, cell_cize):
     return point_list
 
 ```
+## Lists and Loops
+We have introduced both lists and loops, and now will see how to use python to iterate over items in a list. Given the following list:
+```python
+point_list = ['A', 'B', 'C', 'D', 'E', 'F']
+``` 
+We can ask the computer to iterate over the list:
+
+```python
+point_list = ['A', 'B', 'C', 'D', 'E', 'F']
+for i in point_list:
+    print i
+```
+We will get:
+```
+A
+B
+C
+D
+E
+F
+```
+This operation seems fairly useless, however if we can imagine a very large list and more complex operations it begins to be much more valuab. Consider our cubic_grid() definition.  It returns a list of points.  What if we want to add a sphere to each of the points in the cubic_grid() definition. 
+
+```python
+point_list = cubic_grid(5, 5, 5, 1):
+
+for i in point_list:
+    rs.AddSphere(i, 2)
+```
+This program creates an ordered list of points and adds a sphere to each one with a radius of 2. 
+
