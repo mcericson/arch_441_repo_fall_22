@@ -52,7 +52,7 @@ def line_grid(x_number, y_number, z_number, cell_size):
             color = random_color(255)
             rs.ObjectColor(line, color)
 
-points = line_grid(10, 10, 10, 1)
+line_grid(10, 10, 10, 1)
 
 
 
