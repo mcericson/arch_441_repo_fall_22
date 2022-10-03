@@ -2,7 +2,7 @@
 
 This is a quick start to programming with python inside Rhino. The links below offer more resources:
 
-##Class Links:
+## Class Links:
 
 - **Python Programming:** https://woodbury.on.worldcat.org/oclc/44958765
 - **Essential Mathematics:** https://developer.rhino3d.com/guides/general/essential-mathematics/
