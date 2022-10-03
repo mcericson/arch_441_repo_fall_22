@@ -1,0 +1,3 @@
+This project uses a game space to build an education experience on the structure of the human brain.
+This project builds a virtual experience that translate the structure of the human brain into a three-dimensional game.
+This project expands the realm of human computer interaction by incorportaing biometrics into the generation of virtual experiences.

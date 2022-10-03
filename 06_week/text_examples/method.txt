@@ -1,0 +1,3 @@
+This project uses biometrics to immerse the user in a virtual space of which they do not have full controll, but yet remain the author. 
+This project uses a virtual environment to immerse the user in the experience of the brain.
+This project contains minature games that help users to learn about the operation of the brain through a virtual experience.
