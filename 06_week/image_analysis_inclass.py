@@ -5,7 +5,7 @@
 import rhinoscriptsyntax as rs
 import System.Drawing.Bitmap as Bitmap
 
-file_path  = r"C:\Users\ericsonm\OneDrive - Woodbury University\Students_Share\Arch_441_AY22\Arch_441_Class_folder\classes\arch_441_repo_fall_22\06_week\web_mountains_small.jpg"
+file_path  = 'web_mountains_small.jpg'
 
 def image_to_circle(file_path, resolution):
     rs.EnableRedraw(False)

@@ -47,7 +47,7 @@ import rhinoscriptsyntax as rs
 #A program the creates a circle of radius 20 at 0,0,0.
 rs.AddCircle((0,0,0), 20)
 ```
-The text that appears after the "#" is a comment. These are notes for the programmer that will be ignored by the computer. Please use these as much as possible to clarify the intent of your code.  We have now made a very simple program. We can move on to doing something the computer is very good at: repetition.
+The text that appears after the "#" is a comment. These are notes for the programmer that will be ignored by the computer. Please use these as much as possible to clarify the intent of your code.  We have now made a very simple program. We can move on to doing something the computer is very good at--repetition.
 
 ## Loops
 
@@ -330,4 +330,126 @@ for i in point_list:
     rs.AddSphere(i, 2)
 ```
 This program creates an ordered list of points and adds a sphere to each one with a radius of 2. 
+
+## Adding Color to Rhino Geometry
+
+Color in Rhino is described in Red, Green, Blue, and Alpha.  However, before color can be assigned to an object it must be converted to a rhino color.
+
+```python
+import rhinoscriptsyntax as rs
+
+solid_pink = rs.CreateColor(255,100,100,255)
+```
+
+Once the color has been created it can be assigned to a Rhino geometry in two ways.  The first way is to assign it as an object color.  This is the color that will appear in shaded mode.
+
+```python 
+import rhinoscriptsyntax as rs
+
+solid_pink = rs.CreateColor(255,100,100,255)
+circle = rs.AddSphere((0,0,0), 100)
+rs.ObjectColor(circle, solid_pink)
+```
+The second way is to assign it to a material.  This is the color that will appear in render mode and if the geometry is exported to another format such as .obj. The first thing that needs to be done is to assign a material to an object.
+
+```python
+rs.AddMaterialToObject(object)
+```
+
+The next step is to find the index of the objects material.
+
+```python
+index = rs.ObjectMaterialIndex(object)
+```
+The last step is to assign a color to the material by its index.
+
+```python
+rs.MaterialColor(index, color)
+```
+
+Because this a set of functions that will be used often, it is recommended to encapsulate them into a single function in the form:
+
+```python
+def assign_material_color(object, color):
+    rs.AddMaterialToObject(object)
+    index = rs.ObjectMaterialIndex(object)
+    rs.MaterialColor(index, color)
+```
+## Working with Images
+
+Rhino is capable of working with reading a variety of external data types.  In this section we work with an image file in the form of bitmap. 
+We will need an additional library to accomplish enitled System.  Specifically we will use the Bitmap class of the System library.
+
+```python
+import rhinoscriptsyntax as rs
+import System.Drawing.Bitmap as Bitmap
+```
+We also need to establish a file path to read the bitmap from. If the file is in the same directory as the python program is can be accessed by its filename.
+
+```python
+file_path = "some_image.png"
+```
+However, if the image is an different directory a full file path will be needed.  For window's users a "r" will be needed directly before the file_path.
+
+```python
+file_path = "C:\Users\tomjones\OneDrive...."
+```
+Next the image file needs to be read as a bitmap object by Rhino
+
+```python
+img = Bitmap.FromFile(file_path)
+```
+Rhino can read the "some_image.png" file as a bitmap object and we can access its properties with the "img. " syntax.
+
+```python
+width = img.Width
+height = img.Height
+
+print(width, height)
+```
+In addition to height information we can also acces the color information by asking the computer to reture color information from specified point on the image in  x and y coordinates as integers. To do this we will use a nested loop to produce a grid.
+
+```python
+    w_step = int(width/resolution)
+    h_step = int(height/resolution)
+    for i in range(0, width, w_step):
+        x = i
+        for j in range(0, height, h_step):
+            y = j
+            r, g, b, a = img.GetPixel(x, y)
+```
+Once we have the color information we can now use this to create something in Rhino. In this exampe we will create a circle at given set of coordinate with a color values based on the "r,g,b, a" value at the center of the circle and the radius based on the "b" value divided by "20".  ".01" has been added to avoid radii of "0". 
+
+```python
+            location = (x, y, 0)
+            circle = rs.AddCircle(location, b/20 + .01)
+            color = rs.CreateColor(r, g, b, a)
+            rs.ObjectColor(circle, color)
+```
+
+The full defintion should appear as follows:
+
+```python
+
+def image_to_circle(file_path, resolution):
+    rs.EnableRedraw(False)
+    img = Bitmap.FromFile(file_path)
+    
+    width = img.Width
+    height = img.Height
+    
+    print (width, height)
+    
+    w_step = int(width/resolution)
+    h_step = int(height/resolution)
+    for i in range(0, width, w_step):
+        x = i
+        for j in range(0, height, h_step):
+            y = j
+            r, g, b, a = img.GetPixel(x, y)
+            location = (x, y, 0)
+            circle = rs.AddCircle(location, b/20 + .01)
+            color = rs.CreateColor(r, g, b, a)
+            rs.ObjectColor(circle, color)
+```
 
