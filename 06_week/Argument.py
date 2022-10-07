@@ -57,7 +57,7 @@ def thesis_writer(title_1_file, title_2_file, problem_file, method_file, project
     thesis.close()
 
 
-thesis_writer('title1.txt', 'title2.txt','problem.txt', 'method.txt', 'project.txt', 'thesis.txt', 100)
+thesis_writer('title1.txt', 'title2.txt','problem.txt', 'method.txt', 'project.txt', 'thesis.txt', 200)
 
 
 

@@ -5,7 +5,7 @@
 import rhinoscriptsyntax as rs
 import System.Drawing.Bitmap as Bitmap
 
-file_path  = 'web_mountains_small.jpg'
+file_path  = r"C:\Users\ericsonm\OneDrive - Woodbury University\Students_Share\Arch_441_AY22\Arch_441_Class_folder\classes\arch_441_repo_fall_22\06_week\web_mountains_small.jpg"
 
 def image_to_circle(file_path, resolution):
     rs.EnableRedraw(False)
@@ -23,7 +23,7 @@ def image_to_circle(file_path, resolution):
         for j in range(0, height, h_step):
             y = j
             r, g, b, a = img.GetPixel(x, y)
-            location = (x, y, r/2)
+            location = (x, y, 0)
             circle = rs.AddCircle(location, b/20 + .01)
             color = rs.CreateColor(r, g, b, a)
             rs.ObjectColor(circle, color)
