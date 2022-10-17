@@ -25,6 +25,18 @@ def grid(x_num, y_num, space):
             points.append(point)
     return points
 
+def cubic_grid(x_num, y_num, z_num, space):
+    points = []
+    for i in range(0, x_num, space):
+        x = i
+        for j in range(0, y_num, space):
+            y = j
+            for p in range(0, z_num, space):
+                z = p
+                point = (x,y,z)
+                points.append(point)
+    return points
+
 def linear_color_grid(x_num, y_num, space, color_1, color_2):
     rs.EnableRedraw(False)
     points = grid(x_num, y_num,space)
@@ -36,8 +48,25 @@ def linear_color_grid(x_num, y_num, space, color_1, color_2):
         point = rs.AddPoint(i)
         color = linear_color(color_1, color_2, color_scale)
         rs.ObjectColor(point, color)
+        
 
-linear_color_grid(100, 100, 1 , (255,10,100), (100,10,255))
+
+def linear_color_cube(x_num, y_num, z_num, space, color_1, color_2):
+    rs.EnableRedraw(False)
+    points = cubic_grid(x_num, y_num, z_num, space)
+    length = float(len(points))
+    color_inc = float(1.0/length)
+    color_scale = 0.0
+    for i in points:
+        color_scale += color_inc
+        distance = rs.Distance((10,5,5), i)
+        radius = 6
+        if distance > radius:
+            point = rs.AddPoint(i)
+            color = linear_color(color_1, color_2, color_scale)
+            rs.ObjectColor(point, color)
+
+linear_color_cube(10, 20, 10, 1, (255,10,100), (100,10,255))
 
 
 
