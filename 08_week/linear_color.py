@@ -2,6 +2,8 @@
 #equation: (x3, y3, z3)  = (x1, y1, z1) + (x2-x1, y2-y1, z2-z1)*t
 #https://mathworld.wolfram.com/Line.html
 
+import rhinoscriptsyntax as rs
+
 def  linear_color (color_1, color_2,scalar):
     r1, g1, b1 = color_1
     r2, g2, b2 = color_2
@@ -11,23 +13,33 @@ def  linear_color (color_1, color_2,scalar):
     r3 = float(r1 + (r2-r1)*t)
     g3 = float(g1 + (g2-g1)*t)
     b3 = float(b1 + (b2-b1)*t)
-    return r3, g3, b3
-    
+    return rs.CreateColor(r3, g3, b3)
 
-color = linear_color((255,10,100), (0,10,255), 1)
+def grid(x_num, y_num, space):
+    points = []
+    for i in range(0, x_num, space):
+        x = i
+        for j in range(0, y_num, space):
+            y = j
+            point = (x,y)
+            points.append(point)
+    return points
 
-def coordinates_to_rgb(coordinates, floor=0.0, ceiling=1.0):
-    
-    r, g, b = coordinates
-    
-    max = float(ceiling - floor)
-    
-    r_mapped = float(max/r * 255)
-    g_mapped = float(max/g *255)
-    b_mapped = float(max/b *255)
-    
-    return r_mapped, g_mapped, b_mapped
+def linear_color_grid(x_num, y_num, space, color_1, color_2):
+    rs.EnableRedraw(False)
+    points = grid(x_num, y_num,space)
+    length = float(len(points))
+    color_inc = float(1.0/length)
+    color_scale = 0.0
+    for i in points:
+        color_scale += color_inc
+        point = rs.AddPoint(i)
+        color = linear_color(color_1, color_2, color_scale)
+        rs.ObjectColor(point, color)
 
-coord = coordinates_to_rgb((300,10,10))
+linear_color_grid(100, 100, 1 , (255,10,100), (100,10,255))
 
-print (coord)
+
+
+
+
