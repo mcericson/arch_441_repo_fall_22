@@ -44,20 +44,5 @@ def center_cube(center, radius):
     points = [p1, p2, p3, p4, p5, p6, p7, p8]
     
     cube = rs.AddBox(points)
-    return(cube,points)
+    return(cube)
 
-radius = 10
-
-cube = True
-if cube == True:
-    box = center_cube((radius, radius, radius), radius)
-else:
-    box = center_box((40/2, 60/2, 80/2), 40, 60, 80)
-
-points = box[1]
-
-
-for i in points:
-    rs.AddText(i,i,radius/10, justification=2)
-
-rs.ZoomExtents()
