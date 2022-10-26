@@ -4,6 +4,7 @@
 
 import rhinoscriptsyntax as rs
 
+
 def  linear_color (color_1, color_2,scalar):
     r1, g1, b1 = color_1
     r2, g2, b2 = color_2
