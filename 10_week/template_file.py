@@ -1,7 +1,22 @@
-#mark ericson
-#RGB cube 10/26/22
+#student_name
+#date
+#project_name
+#project descriptions
 
+#sources
+#######################################################
+
+
+
+#imports
+#######################################################
 import rhinoscriptsyntax as rs
+
+
+
+#definitions
+#######################################################
+
 
 def cubic_grid(x_num, y_num, z_num, space):
     points = []
@@ -40,43 +55,14 @@ def assign_material_color(object, color):
     index = rs.ObjectMaterialIndex(object)
     rs.MaterialColor(index, color)
 
-def remap(value, source_min, source_max, target_min, target_max):
-    source = source_max - source_min
-    target = target_max - target_min
-    value_less = value - source_min
-    
-    new_value = (target * value_less / source) + target_min
-    return new_value
-    
-def clamp(value, floor, ceiling):
-    if value < floor:
-        return floor
-    if value > ceiling:
-        return ceiling
-    else:
-        return value
 
-def point_to_rgb(point, min, max):
-    
-    x, y, z = point
-    
-    r = clamp(remap(x, min, max, 0, 200), 0, 200)
-    g = clamp(remap(y, min, max, 0, 200), 0, 200)
-    b = clamp(remap(z, min, max, 0, 200), 0, 200)
-    
-    return r, g, b
 
-def rgb_cube(x_num, y_num, z_num, space):
-    points = cubic_grid(x_num, y_num, z_num, space)
-    min = 0
-    max = x_num
-    for i in points:
-        color = point_to_rgb(i, min, max)
-        cube = center_cube(i, space/2)
-        assign_material_color(cube, color)
+#main
+#######################################################
 
 def main():
-    rs.EnableRedraw(False)
-    rgb_cube(10, 10, 10, 1)
+    #place all code here
 
+#run program
+#######################################################
 main()
