@@ -5,6 +5,45 @@ import rhinoscriptsyntax as rs
 import scriptcontext as sc
 import Rhino
 import System
+
+def create_parallel_view(name, size):
+    size_x, size_y = size
+    view = Rhino.Display.DefinedViewportProjection.Top
+    dimensions = System.Drawing.Rectangle(20,20,size_x,size_y)
+    return sc.doc.Views.Add(name, view, dimensions,True)
+
+
+def capture_view(Scale,FileName,NewFolder, view_name):
+
+    view = sc.doc.Views.ActiveView.Equals(view_name)
+
+    if view:
+        view_capture = Rhino.Display.ViewCapture()
+        view_capture.Width = view.ActiveViewport.Size.Width*Scale
+        view_capture.Height = view.ActiveViewport.Size.Height*Scale
+        view_capture.ScaleScreenItems = False
+        view_capture.DrawAxes = False
+        view_capture.DrawGrid = False
+        view_capture.DrawGridAxes = False
+        view_capture.TransparentBackground = False
+        bitmap = view_capture.CaptureToBitmap(view)
+        if bitmap:
+            #locate the desktop and get path
+            folder = System.Environment.SpecialFolder.Desktop
+            path = System.Environment.GetFolderPath(folder)
+            #convert foldername and file name sto string
+            FName = str(NewFolder)
+            File = str(FileName)
+            #combine foldername and desktop path
+            Dir = System.IO.Path.Combine(path,FName)
+            #creat path to the new folder
+            NFolder = System.IO.Directory.CreateDirectory(Dir)
+            Dir = System.IO.Path.Combine(Dir,FileName +".png")
+            print (Dir)
+            #save the file
+            bitmap.Save(Dir, System.Drawing.Imaging.ImageFormat.Png);
+
+
 def set_rendered_view():
     views = rs.ViewNames()
     
@@ -19,6 +58,7 @@ def set_axon_view(rotate_right, rotate_up, view_name):
     rs.RotateView(view_name, 0, angle=float(rotate_right))
     rs.RotateView(view_name, 3, angle=float(rotate_up))
     rs.ZoomExtents()
+    set_rendered_view()
 
 def save_obj(Objects,FileName,NewFolder):
 
@@ -138,14 +178,19 @@ def create_parallel_view(name, size):
     sc.doc.Views.Add(name, view, dimensions,True)
 
 
+
 def main():
     rs.EnableRedraw(False)
-    create_parallel_view("axo_cube", (2000, 2000))
+    view_name = "axo_cube_2"
+    create_parallel_view(view_name, (1000, 1000))
     rgb_cube(20, 20, 20, 1)
-    set_axon_view(45, 120, "axo_cube")
-    set_rendered_view()
+    set_axon_view(45, 120, view_name)
     command = "Zoom Factor 0.75"
     rs.Command(command)
+    set_rendered_view()
+
+
+
 
 
 main()
