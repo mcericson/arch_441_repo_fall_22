@@ -6,8 +6,6 @@ import scriptcontext as sc
 import Rhino
 import System
 
-#user libraries
-import viewport_tools as vt
 
 
 def save_obj(Objects,FileName,NewFolder):
@@ -125,13 +123,6 @@ def main():
     rs.EnableRedraw(False)
     cube_dim = rs.GetInteger("Please provide a dimension for the cube", minimum=4, maximum=20)
     rgb_cube(cube_dim, cube_dim, cube_dim, 1)
-    view_name = "axo_cube_2"
-    vt.create_parallel_view(view_name, (1000, 1000))
-    vt.set_axon_view(45, 120, "axo_cube_2")
-    vt.zoom_scale(.75)
-    rs.EnableRedraw(True)
-    image = rs.GetString("Save Image","No", ["Yes", "No"])
-    if image == 'Yes':
-        vt.capture_view(2.0, "rgb", "rgb_cube")
+
 
 main()
