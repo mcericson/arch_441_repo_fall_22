@@ -133,10 +133,16 @@ def main():
     vt.set_axon_view(45, 120, view_name)
     rs.ZoomExtents()
     vt.zoom_scale(.75, view_name)
-    vt.set_display_mode(view_name, "Rendered")   
-    image = rs.GetString("Save image?", "No", ["yes", "no"])
-    if image == "yes":
-        vt.capture_view(2.0, "rgb", "rgb_cube")
+    vt.set_display_mode(view_name, "Rendered")
+    animate = rs.GetString("Save animation?", "No", ["yes", "no"])
+    if animate == "yes":
+        for i in range(360):
+            rs.Sleep(1)
+            vt.set_axon_view(1,0, view_name)
+            animate_name = "rgb_" + str("%04d"%i)
+            vt.capture_view(2.0, animate_name, "rgb_animation")
+        
+
     
 
 main()
