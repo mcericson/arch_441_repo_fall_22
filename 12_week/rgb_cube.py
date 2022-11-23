@@ -5,7 +5,10 @@ import rhinoscriptsyntax as rs
 import scriptcontext as sc
 import Rhino
 import System
+from imp import reload
 
+#user libraries
+import viewport_tools as vt
 
 
 def save_obj(Objects,FileName,NewFolder):
@@ -123,6 +126,18 @@ def main():
     rs.EnableRedraw(False)
     cube_dim = rs.GetInteger("Please provide a dimension for the cube", minimum=4, maximum=20)
     rgb_cube(cube_dim, cube_dim, cube_dim, 1)
-
+    rs.EnableRedraw(True)
+    view_name = "axo_cube"
+    vt.create_parallel_view(view_name, (800, 800))
+    vt.set_axon_view(45, 120, view_name)
+    rs.ZoomExtents()
+    vt.zoom_scale(.75, view_name)
+    vt.set_display_mode(view_name, "Rendered")
+    image = rs.GetString("Save Image?", "No", ["Yes", "No"])
+    if image == "Yes":
+        file_name = rs.GetString("What is the file name?")
+        folder_name = file_name + "_folder"
+        resolution = rs.GetInteger("Please provide a scalar for the image", minimum=.5, maximum=10)
+        vt.capture_view(resolution, file_name, folder_name)
 
 main()
