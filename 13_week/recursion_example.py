@@ -26,4 +26,4 @@ def tree_growth(min_length, angle, start_line):
 
     
 start_line = rs.AddLine((0,0,0),(0,50,0))
-tree_growth(10, 45, start_line)
+tree_growth(.5, 45, start_line)
