@@ -121,8 +121,17 @@ def rgb_cube(x_num, y_num, z_num, space):
         cube = center_cube(i, float(space/2.0))
         assign_material_color(cube, color)
         rs.ObjectColor(cube, color)
+def clear_file():
+    delete = rs.GetString("Would you like to delete all objects?", "No", ["Yes", "No"])
+    if delete == "Yes":
+        all_objects = rs.AllObjects()
+        rs.DeleteObjects(all_objects)
+    else:
+        pass
 
 def main():
+
+    clear_file()
     rs.EnableRedraw(False)
     cube_dim = rs.GetInteger("Please provide a dimension for the cube", minimum=4, maximum=20)
     rgb_cube(cube_dim, cube_dim, cube_dim, 1)
@@ -133,11 +142,19 @@ def main():
     rs.ZoomExtents()
     vt.zoom_scale(.75, view_name)
     vt.set_display_mode(view_name, "Rendered")
-    image = rs.GetString("Save Image?", "No", ["Yes", "No"])
-    if image == "Yes":
+    animation = rs.GetString("Save animation?", "No", ["Yes", "No"])
+    if animation == "Yes":
         file_name = rs.GetString("What is the file name?")
         folder_name = file_name + "_folder"
         resolution = rs.GetInteger("Please provide a scalar for the image", minimum=.5, maximum=10)
-        vt.capture_view(resolution, file_name, folder_name)
+        for i in range(360):
+            rs.Sleep(1)
+            vt.set_axon_view(1, 5, view_name)
+            animate_name = file_name + str("%04d"%i)
+            #vt.capture_view(resolution, animate_name, folder_name)
 
+
+
+  
+      
 main()
