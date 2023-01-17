@@ -2,6 +2,8 @@
 #10/3/2022
 #This program generates geometry from images
 
+
+
 import rhinoscriptsyntax as rs
 import System.Drawing.Bitmap as Bitmap
 from capture_view import capture_view
@@ -74,6 +76,7 @@ def image_to_circle(file_path, resolution):
         for j in range(0, height, h_step):
             y = j
             r, g, b, a = img.GetPixel(x, y)
+
             location = (x, y, 0)
             circle = rs.AddCircle(location, b/20 + .01)
             color = rs.CreateColor(r, g, b, a)
@@ -130,4 +133,3 @@ seconds = time.localtime()[5]
 current_time = str(minutes) + "_" + str(seconds)
 
 image_to_cube(file_path, 50)
-capture_view(4, "mountain_" + current_time, "mountains")
